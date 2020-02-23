@@ -1,6 +1,6 @@
 {
     "variables": {
-        "region": "eu-west-3b",
+        "region": "eu-west-3",
         "ssh_username": "ubuntu",
         "base_ami": "ami-051ebe9615b416c15",
         "instance_type": "t2.micro",
