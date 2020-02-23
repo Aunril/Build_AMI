@@ -1,0 +1,33 @@
+{
+    "variables": {
+        "region": "eu-west-3b",
+        "ssh_username": "ubuntu",
+        "base_ami": "ami-051ebe9615b416c15",
+        "instance_type": "t2.micro",
+        "subnet_id": "subnet-b62960cd",
+        "temporary_security_group_source_cidrs": "35.180.35.134/32",
+        "associate_public_ip_address": "true"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "{{user `region`}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "source_ami": "{{user `base_ami`}}",
+            "instance_type": "{{user `instance_type`}}",
+            "ssh_username": "{{user `ssh_username`}}",
+            "ami_name": "AMI-Apache-{{timestamp}}",
+            "temporary_security_group_source_cidrs": "{{user `temporary_security_group_source_cidrs`}}",
+            "associate_public_ip_address": "{{user `associate_public_ip_address`}}",
+            "tags": {
+                "Name": "Packer-Ansible"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "./play.yml"
+        }
+    ]
+}
