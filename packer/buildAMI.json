@@ -26,7 +26,7 @@
     "provisioners": [
         {
             "type": "ansible",
-            "playbook_file": "{{user `workspace`}}/ansible/play.yml"
+            "playbook_file": "/var/lib/jenkins/workspace/Build_WebAMI/ansible/play.yml"
         }
     ]
 }
