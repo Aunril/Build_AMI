@@ -1,0 +1,59 @@
+properties([
+  parameters([
+    choice(choices: ['dev', 'hml', 'prd'],description: '', name: 'ENV'),
+    string(defaultValue: 'WebApache', description: '', name: 'APP_NAME', trim: false),
+    string(defaultValue: '443', description: '', name: 'APP_PORT', trim: false),
+    string(defaultValue: 'https://github.com/cloudacademy/static-website-example', description: '', name: 'APP_REPO', trim: false)
+  ]),
+  disableConcurrentBuilds(),
+  buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '1', numToKeepStr: '3'))
+])
+
+pipeline {
+
+  environment {
+	GitBranch = "master"
+    def ec2_ip = sh(script: 'curl http://169.254.169.254/latest/meta-data/public-ipv4', returnStdout: true)
+  }
+
+  agent any
+
+  stages {
+    stage('Get git repository') {
+      steps {
+        // Get code from GitHub repository via SSH
+        //git 'git@github.com:Aunril/Build_AMI.git'
+
+		// Get code from GitHub repository via credentials
+        git(
+          url: 'https://github.com/Aunril/Build_AMI.git',
+          credentialsId: '1a1a1d03-9a1a-4db0-bfef-553f5921c54e',
+          branch: "${GitBranch}"
+        )
+      }
+    }
+	
+    stage('Build AMI') {
+      steps {
+        dir ("packer"){
+            wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+                sh "packer build \
+                    -var ec2_ip=$ec2_ip \
+                    -var env=$ENV \
+                    -var app_repo=$APP_REPO \
+                    -var app_name=$APP_NAME \
+                    -var app_port=$APP_PORT \
+                    buildAMI.json"
+            }
+        }
+      }
+    }	
+	
+	stage('Clean Jenkins Workspace') {
+		steps {
+			cleanWs()
+		}
+	}
+	
+  }
+}
