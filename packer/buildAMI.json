@@ -2,9 +2,9 @@
     "variables": {
         "region": "eu-west-3",
         "ssh_username": "ubuntu",
-        "base_ami": "ami-051ebe9615b416c15",
+        //"base_ami": "ami-051ebe9615b416c15",
         "instance_type": "t2.micro",
-        "subnet_id": "subnet-b62960cd",
+        //"subnet_id": "subnet-b62960cd",
         "temporary_security_group_source_cidrs": "{{user `ec2_ip`}}/32",
         "associate_public_ip_address": "true"
     },
@@ -12,8 +12,19 @@
         {
             "type": "amazon-ebs",
             "region": "{{user `region`}}",
-            "subnet_id": "{{user `subnet_id`}}",
-            "source_ami": "{{user `base_ami`}}",
+            //"subnet_id": "{{user `subnet_id`}}",
+            //"source_ami": "{{user `base_ami`}}",
+            "source_ami_filter": {
+                    "filters": {
+                        "virtualization-type": "hvm",
+                    "name": "ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*",
+                    "root-device-type": "ebs"
+                    },
+                    "owners": [
+                    "099720109477"
+                    ],
+                    "most_recent": true
+            },
             "instance_type": "{{user `instance_type`}}",
             "ssh_username": "{{user `ssh_username`}}",
             "ami_name": "{{user `env`}}-{{user `app_name`}}-AMI-{{ isotime \"01022006-150405\"}}",
