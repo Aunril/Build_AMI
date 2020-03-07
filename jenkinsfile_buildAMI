@@ -3,6 +3,7 @@ properties([
     choice(choices: ['dev', 'hml', 'prd'],description: '', name: 'ENV'),
     string(defaultValue: 'WebApache', description: '', name: 'APP_NAME', trim: false),
     string(defaultValue: '443', description: '', name: 'APP_PORT', trim: false),
+    string(defaultValue: 'eu-west-3', description: '', name: 'APP_REGION', trim: false),
     string(defaultValue: 'https://github.com/cloudacademy/static-website-example', description: '', name: 'APP_REPO', trim: false)
   ]),
   disableConcurrentBuilds(),
@@ -43,6 +44,7 @@ pipeline {
                     -var app_repo=$APP_REPO \
                     -var app_name=$APP_NAME \
                     -var app_port=$APP_PORT \
+                    -var app_region=$APP_REGION \
                     buildAMI.json"
             }
         }
