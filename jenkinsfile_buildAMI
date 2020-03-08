@@ -1,6 +1,6 @@
 properties([
   parameters([
-    choice(choices: ['dev', 'hml', 'prd'],description: '', name: 'ENV'),
+    choice(choices: ['dev', 'preprod', 'prod'],description: '', name: 'ENV'),
     string(defaultValue: 'WebApache', description: '', name: 'APP_NAME', trim: false),
     string(defaultValue: '443', description: '', name: 'APP_PORT', trim: false),
     string(defaultValue: 'eu-west-3', description: '', name: 'APP_REGION', trim: false),
