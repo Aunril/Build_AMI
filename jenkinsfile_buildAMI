@@ -20,6 +20,12 @@ pipeline {
   agent any
 
   stages {
+	stage('Clean Jenkins Workspace') {
+		steps {
+			cleanWs()
+		}
+	}
+	
     stage('Get git repository') {
       steps {
         // Get code from GitHub repository via SSH
@@ -50,12 +56,6 @@ pipeline {
         }
       }
     }	
-	
-	stage('Clean Jenkins Workspace') {
-		steps {
-			cleanWs()
-		}
-	}
 	
   }
 }
