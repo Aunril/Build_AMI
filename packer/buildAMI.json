@@ -23,9 +23,7 @@
             },
             "vpc_filter": {
                     "filters": {
-                         "tag:Name": "{{user `ami_vpc`}}",
-                         "isDefault": "false",
-                         "cidr": "/16"
+                         "tag:Name": "{{user `ami_vpc`}}"
                     }
              },
             "subnet_filter": {
