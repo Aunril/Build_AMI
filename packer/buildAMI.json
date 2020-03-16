@@ -21,6 +21,18 @@
                     ],
                     "most_recent": true
             },
+            "vpc_filter": {
+                    "filters": {
+                         "tag:Name": "{{user `ami_vpc`}}",
+                         "isDefault": "false",
+                         "cidr": "/16"
+                    }
+             }
+            "subnet_filter": {
+                    "filters": {
+                        "tag:Name": "{{user `ami_subnet`}}"
+                    }
+            }
             "instance_type": "{{user `instance_type`}}",
             "ssh_username": "{{user `ssh_username`}}",
             "ami_name": "{{user `app_name`}}-{{user `env`}}-AMI-{{ isotime \"01022006-150405\"}}",
