@@ -2,8 +2,8 @@
 
 ## Présentation
 
-Le Build_AMI utilise Packer associé à Ansible pour déployer une image AMI complète.
-Elle embarque apache2 ainsi qu'un site web.
+Le Build_AMI utilise Packer en utilant Ansible en tant que "provisioner" pour déployer une image sur AWS (AMI).
+Cette image embarque un serveur web apache2 hébergeant un site web statique.
 
 
 ## Prerequisites
