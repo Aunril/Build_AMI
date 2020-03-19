@@ -11,3 +11,4 @@ Cette image embarque un serveur web apache2 hébergeant un site web statique.
   - Persistent Iptables & Iptable to redirect 80 -> 8080
   - JQ
   - AWS CLI for next steps
+lll
